@@ -1,21 +1,6 @@
 # ElixirYamlKeys
 
-**TODO: Add description**
+Simple cli util to iterate all yaml files in current directory and sub-directories
+and output any keys found in the files.
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `elixir_yaml_keys` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:elixir_yaml_keys, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/elixir_yaml_keys>.
-
+Mostly an excuse to play around with elixir.
