@@ -13,6 +13,6 @@ defmodule ElixirYamlKeys do
 
   """
   def hello do
-    :world
+    IO.puts :world
   end
 end
