@@ -24,3 +24,5 @@ elixir_yaml_keys-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+elixir_yaml_keys

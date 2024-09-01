@@ -1,18 +1,22 @@
 defmodule ElixirYamlKeys do
-  @moduledoc """
-  Documentation for `ElixirYamlKeys`.
-  """
+  alias ElixirYamlKeys.Keys
+  alias ElixirYamlKeys.ListFiles
+  alias ElixirYamlKeys.Worker
 
-  @doc """
-  Hello world.
+  def main(_argv) do
+    Keys.start_link()
+    ListFiles.start()
 
-  ## Examples
+    extract()
+    IO.inspect(Keys.get_all())
+    0
+  end
 
-      iex> ElixirYamlKeys.hello()
-      :world
+  defp extract() do
+    results = 1..4
+    |> Enum.map(fn _ -> Worker.run() end)
+    |> Task.await_many()
 
-  """
-  def hello do
-    IO.puts :world
+    if !Enum.any?(results, fn x -> x == :done end), do: extract()
   end
 end

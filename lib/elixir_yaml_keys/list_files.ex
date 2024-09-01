@@ -1,4 +1,4 @@
-defmodule ListFiles do
+defmodule ElixirYamlKeys.ListFiles do
 
   def start(path \\ File.cwd!()) do
     {:ok, files} = File.ls(path)
@@ -11,13 +11,12 @@ defmodule ListFiles do
   end
 
   def next() do
-    state = Agent.get(__MODULE__, &(&1))
-    case _next(state) do
-     {val, next_state} ->
-      Agent.update(__MODULE__, fn _ -> next_state end)
-      val
-     nil -> :done
-    end
+    Agent.get_and_update(__MODULE__, fn state ->
+      case _next(state) do
+        {val, next_state} -> {val, next_state}
+        nil -> {:done, []}
+      end
+    end)
   end
 
   defp _next([]) do
@@ -29,7 +28,8 @@ defmodule ListFiles do
       File.dir?(head) ->
         new_files = File.ls!(head) |> Enum.map(fn x -> head <> "/" <> x end)
         _next(new_files ++ tail)
-      true -> {head, tail}
+      String.ends_with?(head, ".yaml") || String.ends_with?(head, ".yml") -> {head, tail}
+      true -> _next(tail)
     end
   end
 
